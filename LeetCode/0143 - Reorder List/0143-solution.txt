@@ -1,0 +1,88 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+/**
+* My Approach: 
+* 1. Split list in half.
+* 2. Reverse second half of the list.
+* 3. Construct new list whose elements pull from the first half and flipped second half 
+*    in an alternating manner, as shown below.
+*
+* 2 -> 4 -> 6 -> 8 -> 10 -> 12      [original list]
+* 2 -> 4 -> 6    8 -> 10 -> 12      [break list in half]
+* 2 -> 4 -> 6    12 -> 10 -> 8      [flip second half]
+* 2 -> 12 -> 4 -> 10 -> 6 -> 8      [construct new list as detailed in step 3]
+*
+*/
+
+class Solution {
+    public void reorderList(ListNode head) {
+        // Check if linked List size is 0 or 1
+        if (head == null || head.next == null)
+            return;
+        
+        // 1. Split list in half.
+        ListNode firstHead = head;      // Head of first half.
+        ListNode secondHead = head;     // Head of second half.
+        ListNode firstTail = null;      // Tail of first half.
+        ListNode secondTail = head;     // Tail of second half.
+        
+        while (secondTail != null && secondTail.next != null) {
+            firstTail = secondHead;
+            secondHead = secondHead.next;
+            secondTail = secondTail.next.next;        // Skip ahead by two
+        }
+        
+        firstTail.next = null;   // terminates the first half linked list
+        
+        
+        // 2. Reverse the second half of the list.
+        ListNode reversedSecondHalf = reverse(secondHead);   
+        
+        // 3. Construct new list by alternating merge of first half and flipped second half.
+        merge(firstHead, reversedSecondHalf);              
+        
+    }
+    
+    // Standard linked list reversal
+    public ListNode reverse(ListNode head) {
+        // Initialize previous, current, next nodes
+        ListNode pre = null;
+        ListNode current = head;
+        
+        // Iterate through linked list
+        while (current != null) {
+            // find next node
+            ListNode next = current.next;
+            // set next point of current to previous node
+            current.next = pre;
+            // set previous node to current
+            pre = current;
+            // set current node to next
+            current = next;
+        }
+        // return final node
+        return pre; 
+    }
+    
+    // This method performs an interleaving merge between two linked lists.
+    public void merge(ListNode head1, ListNode head2) {
+        while (head1 != null) {
+            ListNode next1 = head1.next;
+            ListNode next2 = head2.next;
+            head1.next = head2;
+            if (next1 == null) { break; }
+            head2.next = next1;
+            head1 = next1;
+            head2 = next2;
+        }
+    }
+}
