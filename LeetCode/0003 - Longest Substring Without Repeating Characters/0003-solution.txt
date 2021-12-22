@@ -1,0 +1,43 @@
+/**
+* My Approach: 
+*
+* 1. Initialize a char dictionary to keep track of occurrences.
+* 2. Use the sliding window approach to iterate through the string.
+* 3. If a char appears more than once, move the left iterator enough times to keep
+*    the string non-repeating. 
+* 4. Continually compare the eligible substring lengths to the current max to find 
+*    values that are potentially greater.
+* 5. Return after reaching the end!
+*
+*/
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // 1. Initialize a char dictionary to keep track of occurrences.
+        int[] dictionary = new int[128];
+        int max = 0;
+        
+        // 2. Use the sliding window approach to iterate through the string.
+        int left, right;
+        left = right = 0;
+        
+        while (right < s.length()) {
+            char charAtRight = s.charAt(right);
+			dictionary[charAtRight]++;
+            // 3. If a char appears more than once, move the left iterator enough times to keep
+            // the string non-repeating. 
+            while (dictionary[charAtRight] > 1) {
+                char charAtLeft = s.charAt(left);
+                dictionary[charAtLeft]--;
+                left++;
+            }
+            // 4. Continually compare the eligible substring lengths to the current max to find 
+            // values that are potentially greater.
+            max = Math.max(right-left+1, max);
+            right++;
+        }
+        
+        // 5. Return after reaching the end!
+        return max;
+    }
+}
