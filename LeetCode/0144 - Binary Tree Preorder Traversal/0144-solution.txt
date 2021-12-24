@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+/**
+* My Approach: 
+*
+* 1. Use the definition of the preorder traversal of a binary tree (root -> left child -> right child)
+*    to add all the items to a list, returning when complete. 
+*/
+
+class Solution {
+    // Main function that takes in root
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> ret = new ArrayList<>();
+        preorder(root, ret);
+        return ret;
+    }
+    // Helper function to actually employ the recursion
+    private void preorder(TreeNode node, List<Integer> ret){
+        if (node == null)
+            return;
+        ret.add(node.val);
+        preorder(node.left, ret);
+        preorder(node.right, ret);
+    }
+}
