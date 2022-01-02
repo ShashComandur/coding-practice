@@ -1,0 +1,41 @@
+/**
+* My Approach: 
+*
+* 1. Create an array arr of size 60.
+* 2. Calculate time % 60 for every element of time, store the counts of each in arr.
+* 3. The number of pairs can be calculated from this array by taking the product of all indices that add up *    to 60.
+* 4. 0 and 30 second mods are special cases. Let the number of occurences in 0 be i. The number of pairs 
+*    that can be made is (i-1)+(i-2)+(i-3)+...+1, which can be rewritten as (i-1)(i-2)/(i-1). 
+* 5. Do this calculation for 0 and 30, add them to the total. 
+* 6. Return the total.
+*
+*/
+
+class Solution {
+    public int numPairsDivisibleBy60(int[] time) {
+        int count = 0;
+        // 1. Create an array arr of size 60.
+        int[] arr = new int[60];
+        
+        // 2. Calculate time % 60 for every element of time, store the counts of each in arr.
+        for(int i=0; i<time.length; i++) {
+            arr[time[i] % 60]++;
+        }
+        
+        // 3. The number of pairs can be calculated from this array by taking the product of all indices
+        // that add up to 60.
+        for(int i=1; i<30; i++) {
+            count += arr[i]*arr[60-i];
+        }
+        
+        // 5. Do the calculation in 4. for 0 and 30, add them to the total. 
+        count += nSum(arr[0]-1);
+        count += nSum(arr[30]-1);
+        
+        return count;
+    }
+    
+    private int nSum(int n) {
+        return (n)*(n+1)/2;
+    }
+}
