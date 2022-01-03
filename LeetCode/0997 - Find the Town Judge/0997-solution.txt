@@ -1,0 +1,35 @@
+/**
+*: 
+* Assumptions: 
+* The judge trusts nobody, everyone else trusts the town judge. 
+* Given this, if there is a person who is favored by everyone, save one person (the judge themself), they must be the judge.
+*
+* My Approach: 
+* 1. Make an array of size n+1 to represent the entire town.
+* 2. Traverse the array - whenever someone trusts someone else, decrement their index in the array by 1. Whenever someone is 
+*    trusted by someone else, increment their index in the array by 1.
+* 3. Given these conditions, by the end of the traversal, if there exists a judge, their value in the array should be n-1, as
+*    everyone in the town (sans themself) trusts them.
+*
+*/
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        // 1. Make an array of size n+1 to represent the entire town.
+        int[] score = new int[n+1];
+        
+        // 2. Traverse the array - whenever someone trusts someone else, decrement their index in the array 
+        // by 1. Whenever someone is trusted by someone else, increment their index in the array by 1.
+        for (int[] x: trust) {
+            score[x[0]]--;
+            score[x[1]]++;
+        }
+        
+        for (int i=1; i<score.length; i++) {
+            if (score[i] == n-1)
+                return i;
+        }
+        
+        return -1;
+    }
+}
