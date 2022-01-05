@@ -1,0 +1,52 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+/**
+ * My Approach:
+ * 1. Start at the head of both nodes, check which one is smaller.
+ * 2. Add the smaller one to the beginning of the sequence, move forward.
+ * 3. In the event that one of the lists is larger than the other, append the extra content of the larger list after the merging process is complete.
+*/
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        
+        ListNode temp = new ListNode(0);
+        ListNode current = temp;
+        
+        while (list1 != null && list2 != null) {
+            // 1. Start at the head of both nodes, check which one is smaller.
+            // 2. Add the smaller one to the beginning of the sequence, move forward.
+            if (list1.val < list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            }
+            else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+            current = current.next;     // advance
+        }
+        
+        // 3. In the event that one of the lists is larger than the other, append the extra content of 
+        // the larger list after the merging process is complete.
+        if (list1 != null) {
+            current.next = list1;
+            list1 = list1.next;
+        } 
+        if (list2 != null) {
+            current.next = list2;
+            list2 = list2.next;
+        }
+        
+        return temp.next;        
+    }
+}
