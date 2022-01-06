@@ -1,0 +1,30 @@
+/**
+ * My Approach:
+ * 1. Calculate the net change in passengers for every position. The problem constraint lists a max of 1000 units for the length of the trip.
+ * 2. Use this figure to see if the number of passengers in the car exceeds the capacity of the car at any point in the trip.
+ *    Return false if it does, true if not. 
+*/
+
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int currentPassengers = 0;
+        int[] netChange = new int[1001];
+		
+        // 1. Calculate the net change in passengers for every position. The problem constraint lists a max of 
+        // 1000 units for the length of the trip.
+        for (int i=0; i<trips.length; i++) {
+            netChange[trips[i][1]] += trips[i][0];
+            netChange[trips[i][2]] -= trips[i][0];
+        }
+        
+        // 2. Use this figure to see if the number of passengers in the car exceeds the capacity of the car 
+        // at any point in the trip. Return false if it does, true if not. 
+        for (int i=0; i<netChange.length; i++) {
+            currentPassengers += netChange[i];
+            if (currentPassengers > capacity)
+                return false;
+        }
+        
+        return true;        
+    }
+}
