@@ -1,0 +1,37 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+ 
+/**
+* My Approach:
+* 1. Convert the linked list to an ArrayList.
+* 2. Use Math.random() to select a random element from the ArrayList.
+*/
+class Solution {
+	ArrayList<Integer> linkedList = new ArrayList<>(); 
+    public Solution(ListNode head) {
+        // 1. Convert the linked list to an array.
+        while (head != null) {
+            linkedList.add(head.val);
+            head = head.next;
+        }  
+    }
+    
+    public int getRandom() {
+        // 2. Use Math.random() to select a random element from the ArrayList.
+        return linkedList.get((int)(Math.random() * linkedList.size()));
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(head);
+ * int param_1 = obj.getRandom();
+ */
