@@ -1,0 +1,39 @@
+/**
+* My Approach:
+* After executing a set of instructions, the only case in which the robot cannot be bounded by a circle
+* is when the robot moves in one direction and doesn't come back to its starting position.
+* 
+* 1. Iterate through the instructions.
+* 2. Calculate the ending position of the robot. 
+* 3. Return true if it ends up where it started, or if the direction is not north.
+*/
+
+class Solution {
+    public boolean isRobotBounded(String instructions) {
+        int directions[][] = {{0,1}, {-1, 0}, {0, -1}, {1,0}};
+        int direction = 0;
+        int x = 0;
+        int y = 0;
+        
+        // 1. Iterate through the instructions.
+        // 2. Calculate the ending position of the robot.
+        for(int i = 0; i < instructions.length(); i++){
+            // If the instruction is to turn left:
+            if(instructions.charAt(i) == 'L'){
+                direction = (direction + 1) % 4;
+            }
+            // If the instruction is to turn right:
+            else if(instructions.charAt(i) == 'R'){
+                direction = (direction + 3) % 4;
+            }
+            // If the instruction is to go straight:
+            else{
+                x = x + directions[direction][0];
+                y = y + directions[direction][1];
+            }
+        }
+        // x, y, and direction now contain the the (x, y) coordinates of the robot and the direction it's facing.
+        // 3. Return true if it ends up where it started, or if the direction is not north.
+        return x == 0 && y == 0 || direction != 0;
+    }
+}
