@@ -1,0 +1,53 @@
+/**
+* My Approach:
+* 
+* 1. Reverse both of the input strings.
+* 2. Initialize a string to represent the return, as well as an int to represent the carry for each step.
+* 3. Iterate through the strings, make sure to iterate through the max of the lengths of both strings.
+*    Use binary addition to calculate at each step, update the carry and return string as needed.
+* 4. If there is an extra carry at the end, append it to the string.
+* 5. Reverse the return string and return it.
+*/
+
+class Solution {    
+    public String addBinary(String a, String b) {      
+        int carry=0;
+        StringBuilder a1 = new StringBuilder(a);
+        StringBuilder b1 = new StringBuilder(b);
+        StringBuilder ret = new StringBuilder();
+        a1.reverse(); 
+        b1.reverse();
+        
+        int i = 0;
+        int sum = 0;
+        while(i < a.length() || i < b.length()) {
+            sum = carry;
+            if(i < a.length())
+                sum += a1.charAt(i)-'0';
+            if(i < b.length())
+                sum += b1.charAt(i)-'0';
+            if(sum == 0) {
+                carry = 0;
+                ret.append('0');
+            }
+            if(sum == 1) {
+                 carry = 0;
+                 ret.append('1');
+             }
+            if(sum == 2) {
+                carry = 1;
+                ret.append('0');
+            }
+           if(sum == 3) {
+                carry = 1;
+                ret.append('1');
+            }
+            i++;
+        }
+    
+        if(carry == 1)
+            ret.append('1');
+        ret.reverse();
+        return ret.toString();
+    }
+}
