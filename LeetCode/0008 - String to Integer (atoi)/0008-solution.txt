@@ -1,0 +1,46 @@
+/**
+* My Approach:
+* 
+* 1. Ignore the whitespace by use of a while loop.
+* 2. Look for the negative sign - if there is one, update the multiplier variable.
+* 3. Iterate through the string to look for any present digits. If a digit is found, update the return value by multiplying it by 10, and add the appropriate number.
+* 4. Return the return variable times the multiplier. 
+* 
+*/
+
+class Solution {
+    public int myAtoi(String s) {
+        int ret = 0;            // return
+        int i = 0;              // index
+        int multiplier = 1;     // multiplier - update to -1 if negative sign is found
+        
+        // 1. Ignore the whitespace by use of a while loop.
+        while (i < s.length() && s.charAt(i) == ' ')
+            i++;
+        
+        // 2. Look for the negative sign - if there is one, update the multiplier variable.
+        if (i < s.length() && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+			// update to -1 if negative sign is found
+			if (s.charAt(i++) == '-') {
+				multiplier = -1;
+			}
+		}
+        
+        // 3. Iterate through the string to look for any present digits. If a digit is found, update the 
+        // return value by multiplying it by 10, and add the appropriate number.
+        while (i < s.length() && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+			// perform max check
+			if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && s.charAt(i) - '0' > 7)) {
+				if (multiplier == -1)
+                    return Integer.MIN_VALUE;
+                return Integer.MAX_VALUE;
+			}
+			
+			// update ret
+			ret *= 10; 
+            ret += (s.charAt(i++) - '0');
+		}
+        
+        return ret * multiplier;
+    }
+}
