@@ -1,0 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+
+/**
+ * My approach:
+ * 1. Use the slow/fast pointer approach: one index iterates by one, another that iterates by two. 
+ * 2. If the pointers ever reach the same node, a cycle has been hit: reset the slow pointer to the 
+ *    beginning and start incrementing by one for both slow and fast until they reach the same node.
+ */
+ 
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        // 1. Use the slow/fast pointer approach: one index iterates by one, another that iterates by two. 
+        while (fast != null && fast.next != null) {
+            // iterate accordingly
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            // check if slow and fast have hit the same node
+            if (slow == fast) {
+                // reset the slow pointer to the beginning and start incrementing by one for both slow and 
+                // fast until they reach the same node.
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }
+        // no cycle found
+        return null;
+    }
+}
