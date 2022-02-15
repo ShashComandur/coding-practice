@@ -1,0 +1,18 @@
+/**
+* My Approach:
+* 1. Sort the array.
+* 2. Iterate through the array, incrementing by 2.
+* 3. If the left element if a grouping does not have a copy of itself immediately to the right, it is the single element.
+* 4. If the loop is escaped, the last element is the single number.
+*/
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums);                          
+        for(int i=0 ; i<nums.length-1; i+=2){       
+            if(nums[i]!=nums[i+1])                  
+                return nums[i];                   
+        }
+        return nums[nums.length-1];                
+    }
+}
