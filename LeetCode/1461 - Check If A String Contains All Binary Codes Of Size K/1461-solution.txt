@@ -1,0 +1,27 @@
+/**
+ * My approach:
+ * 1. Make a hash set to keep track of all the present hash codes in the string.
+ * 2. Iterate through the string and find all substrings of length k.
+ * 3. Add each to the hash set to filter duplicates.
+ * 4. If at the end of a check, the hash set size is 2^k, return true.
+ * 5. Else, return false. 
+ */
+
+class Solution {
+    public boolean hasAllCodes(String s, int k) {
+        int check = (int) Math.pow(2, k);
+        boolean ret = false;
+        
+        // # 1
+        HashSet<String> set = new HashSet<String>();
+        
+        // # 2
+        for (int i=0; i<=s.length()-k; i++) {
+            String current = s.substring(i, i+k);
+            set.add(current);   		// # 3     
+            if (set.size() == check)	// # 4
+                ret = true;
+        }        
+        return ret;
+    }
+}
