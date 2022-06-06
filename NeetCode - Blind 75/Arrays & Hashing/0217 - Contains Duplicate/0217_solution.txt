@@ -1,0 +1,21 @@
+/**
+* My Approach:
+*   Note that hash sets cannot contain duplicates.
+* 1. Create a new hash set.
+* 2. Iterate through the input array.
+* 3. At each iteration, check if the number already exists in the hash set - return true if so,
+*    as this means there is a duplicate.
+* 4. Return false after iterating, as if it did not already return, there are no duplicates.
+*/
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int n: nums) {
+            if (set.contains(n))
+                return true;
+            set.add(n);
+        }
+        return false;
+    }
+}
