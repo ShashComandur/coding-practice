@@ -1,0 +1,31 @@
+/**
+* My Approach:
+* 1. Count the number of letter appearences for every word using a char array of length 26. 
+* 2. Put each in a hash map, where the key is the char array and the value is the list of anagrams.
+* 3. Add the map values to the return list and return it.
+* 
+*/
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> ret = new ArrayList<>();
+        if(strs.length == 0) return ret;
+        
+        HashMap<String, List<String>> map = new HashMap();
+        for(String s: strs){
+            char[] hash = new char[26];
+            for(char c: s.toCharArray()) {
+                hash[c-'a']++;
+            }
+            
+            String str = new String(hash);
+            if(map.get(str) == null) {
+                map.put(str, new ArrayList<>());
+            }
+            
+            map.get(str).add(s);
+        }
+        ret.addAll(map.values());
+        return ret;
+    }
+}
