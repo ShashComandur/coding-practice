@@ -1,0 +1,23 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        
+        // initialize return, prefix, postfix array
+        int[] ret = new int[nums.length];
+        
+        // compute prefix values
+        int prefix = 1;
+        for (int i=0; i<nums.length; i++) {
+            ret[i] = prefix;
+            prefix *= nums[i];
+        }
+        
+        // compute return values using prefixes
+        int postfix = 1;
+        for (int i=nums.length-1; i>= 0; i--) {
+            ret[i] *= postfix;
+            postfix *= nums[i];
+        }
+        
+        return ret;
+    }
+}

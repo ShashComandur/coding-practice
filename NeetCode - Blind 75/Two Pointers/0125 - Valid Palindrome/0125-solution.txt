@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        s = prune(s);
+        int front = 0;
+        int back = s.length() - 1;
+        
+        while (front < s.length() / 2) {
+            if (s.charAt(front) != s.charAt(back))
+                return false;
+            front++;
+            back--;
+        }
+        return true;
+    }
+    
+    public String prune(String s) {
+        String ret = "";
+        s = s.toUpperCase();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isLetterOrDigit(s.charAt(i)))
+                ret += s.charAt(i);
+        }
+        return ret;
+    }
+}
