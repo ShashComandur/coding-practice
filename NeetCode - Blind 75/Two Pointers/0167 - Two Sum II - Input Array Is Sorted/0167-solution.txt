@@ -1,0 +1,31 @@
+/**
+* My Approach:
+* 1. Intialize return array of size 2, as well as two indices - one at the first item, one at the last.
+* 2. Loop through the array while the front index is smaller than the back, checking if the items at
+* front and back add up to the target.
+* 3. Since the array is sorted in non decreasing order, if the sum is smaller than the target, we can increase
+* the front index.
+* 4. Repeat until the target is reached, returning the appropriate indices. 
+*/
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int[] ret = new int[2];
+        int front = 0;
+        int back = numbers.length - 1;
+        
+        while (front < back) {
+            if (numbers[front] + numbers[back] == target)
+                break;
+            if (numbers[front] + numbers[back] < target) {
+                front++;
+                continue;
+            }
+            back--;
+        }
+        
+        ret[0] = front + 1;
+        ret[1] = back + 1;
+        return ret;
+    }
+}
