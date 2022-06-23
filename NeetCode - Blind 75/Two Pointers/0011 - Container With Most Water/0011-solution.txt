@@ -1,0 +1,28 @@
+/**
+* Approach:
+* 1. Initialize two pointers, at first and last items in height.
+* 2. Iterate through the array - while left is less than right, calculate the current area between left and right.
+*    If this area is greater than the current max, set the max equal to it.
+* 3. If height[left] < height[right], move left to the right by 1.
+* 4. In any other case, move right to the left by 1.
+* 5. After the loops breaks, return the content of max. 
+*/
+
+class Solution {
+    public int maxArea(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int max = (right - left) * Math.min(height[left], height[right]);
+        
+        while (left < right) {
+            int currentArea = (right - left) * Math.min(height[left], height[right]);
+            max = Math.max(max, currentArea);
+            
+            if (height[left] < height[right])
+                left++;
+            else
+                right--;
+        }   
+        return max;
+    }
+}
