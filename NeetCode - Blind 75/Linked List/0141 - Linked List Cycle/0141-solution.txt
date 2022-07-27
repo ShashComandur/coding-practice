@@ -1,0 +1,34 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+
+/*
+ * My Approach:
+ * 1. Iterate through the linked list.
+ * 2. Add each node to hash set.
+ * 3. At each iteration, check if the current node is present in the set. If it is, a cycle has been encountered, return true.
+ * 4. Return false if the loop breaks, as no cycle has been found.
+ */
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        HashSet<ListNode> set = new HashSet<ListNode>();
+        
+        while (head != null) {
+            if (set.contains(head))
+                return true;
+            set.add(head);
+            head = head.next;
+        }
+        
+        return false;        
+    }
+}

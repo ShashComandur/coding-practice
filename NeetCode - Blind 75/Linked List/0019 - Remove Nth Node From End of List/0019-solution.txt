@@ -1,0 +1,40 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+/**
+ * My Approach:
+ * 1. Use a left and right pointer. Start the left at 0, the right at n.
+ * 2. Iterate through the LL — when the right is at the end, left will be at the node to be deleted.
+ * 3. 
+ */
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null || head.next == null) return null;
+        ListNode temp = new ListNode(0);
+        temp.next = head;
+        ListNode left = temp;
+        ListNode right = temp;
+        
+        while (right.next != null && n > 0) {
+            right = right.next;
+            n--;
+        }
+        
+        while (right.next != null) {
+            left = left.next;
+            right = right.next;
+        }
+        
+        left.next = left.next.next;
+        return temp.next;        
+    }
+}

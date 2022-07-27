@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+/*
+ * My Approach:
+ * 1. Go through lists - say it is 8 elements long - merge lists 0 and 1, 2 and 3, so on.
+ * 2. The process in 1. will half the number of remaining lists - merge the remaining 4 using the same process of breaking it up into two pieces.
+ * 3. Repeat until one list remains.
+ */ 
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        int size = lists.length;
+        int interval = 1;
+
+        while (interval < size) {
+            for (int i = 0; i < size - interval; i += 2 * interval) {
+                lists[i] = merge(lists[i], lists[i + interval]);
+            }
+            interval *= 2;
+        }
+        return size > 0 ? lists[0] : null;
+    }
+    
+    private ListNode merge(ListNode list1, ListNode list2) {
+        ListNode ret = new ListNode();
+        ListNode tail = ret;
+        
+        while(list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+        
+        if (list1 != null)
+            tail.next = list1;
+        else if (list2 != null)
+            tail.next = list2;
+        
+        return ret.next;
+    }
+}

@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+/*
+ * My Approach:
+ * 1. Split the list in two (use slow/fast approach)
+ * 2. Reverse the second part of the list.
+ * 3. Merge the first half, and the reversed second half, alternating nodes.
+*/
+class Solution {
+    public void reorderList(ListNode head) {
+        ListNode slow, fast;
+        slow = head;
+        fast = head.next;
+        
+        // 1.
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // 2.
+        ListNode secondHalf = slow.next;
+        ListNode prev = null;
+        ListNode temp;
+        slow.next = null;    // sever list
+        
+        while (secondHalf != null) {
+            temp = secondHalf.next;
+            secondHalf.next = prev;
+            prev = secondHalf;
+            secondHalf = temp;
+        }
+        
+        // 3.
+        ListNode firstHalf = head;
+        secondHalf = prev;
+        while (secondHalf != null) {
+            ListNode temp1 = firstHalf.next;
+            ListNode temp2 = secondHalf.next;
+            firstHalf.next = secondHalf;
+            secondHalf.next = temp1;
+            
+            firstHalf = temp1;
+            secondHalf = temp2;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+/**
+ * My Approach:
+ * 1. Create a hashmap to map every open paranthesis to its close paranthesis.
+ * 2. Iterate through the string and use a stack to determine the validity of the string.
+ */
+
+class Solution {
+    public boolean isValid(String s) {
+        Map<Character, Character> hash = new HashMap<>();
+        hash.put(']', '[');
+        hash.put(')', '(');
+        hash.put('}', '{');
+    
+        Stack<Character> stack = new Stack<>();
+        
+        for (int i = 0; i < s.length(); i++) {
+            Character current = Character.valueOf(s.charAt(i));
+            if (hash.containsKey(current)) {
+                if (!stack.empty() && stack.peek() == hash.get(current))
+                    stack.pop();
+                else
+                    return false;
+            } else {
+                stack.push(current);
+            }
+        }
+        return (stack.empty());
+    }
+}
