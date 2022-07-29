@@ -1,0 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+/**
+ * My Approach:
+ * 1. Base Case: Check if the nodes are null — if they both are, the tree is the same, return true.
+ * 2. Base Case: Check if one of the nodes is null, or if the values don't match - return false.
+ * 3. In any other case, recurse 
+ */
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null)
+            return true;
+        if ((p == null || q == null) || (p.val != q.val))
+            return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+}
